@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[자바성능튜닝이야기] 04 어디에  담아야 하는지... | JENNY|개발자</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="자바성능튜닝이야기,JAVA,Collection">
+    
+    <meta name="description" content="이 글은 아직 작성 중이며 완성 되지 않은 상태입니다.자바 성능 튜닝 이야기(04 어디에  담아야 하는지…)을 읽고 공부하여 정리한 내용입니다.   목차   Collection 및 Map 인터페이스의 이해 Collection 인터페이스 Map 인터페이스   Set 관련 클래스 List 관련 클래스 Queue 관련 클래스 Map 관련 클래스 Collectio">
+<meta name="keywords" content="자바성능튜닝이야기,JAVA,Collection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[자바성능튜닝이야기] 04 어디에  담아야 하는지...">
+<meta property="og:url" content="https://simhyejin.github.io/2019/11/05/javaPerfomanceTunning4/index.html">
+<meta property="og:site_name" content="JENNY|개발자">
+<meta property="og:description" content="이 글은 아직 작성 중이며 완성 되지 않은 상태입니다.자바 성능 튜닝 이야기(04 어디에  담아야 하는지…)을 읽고 공부하여 정리한 내용입니다.   목차   Collection 및 Map 인터페이스의 이해 Collection 인터페이스 Map 인터페이스   Set 관련 클래스 List 관련 클래스 Queue 관련 클래스 Map 관련 클래스 Collectio">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-05T02:42:44.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[자바성능튜닝이야기] 04 어디에  담아야 하는지...">
+<meta name="twitter:description" content="이 글은 아직 작성 중이며 완성 되지 않은 상태입니다.자바 성능 튜닝 이야기(04 어디에  담아야 하는지…)을 읽고 공부하여 정리한 내용입니다.   목차   Collection 및 Map 인터페이스의 이해 Collection 인터페이스 Map 인터페이스   Set 관련 클래스 List 관련 클래스 Queue 관련 클래스 Map 관련 클래스 Collectio">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/j-favi.png# path to favicon">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">컴공녀의 개발 블로그</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Blog/">Blog</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Book/">Book</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Book/JAVA/">JAVA</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CSE/">CSE</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CSE/NETWORK/">NETWORK</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CSE/보안/">보안</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Book/">Book</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Book/JAVA/">JAVA</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 신규 광고 단위 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4216786793416168"
+     data-ad-slot="4633808997"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                            <article id="post-javaPerfomanceTunning4" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [자바성능튜닝이야기] 04 어디에  담아야 하는지...
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/2019/11/05/javaPerfomanceTunning4/" class="article-date">
+         <time datetime="2019-11-05T02:14:41.000Z" itemprop="datePublished">2019-11-05</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Collection/">Collection</a>, <a class="tag-link" href="/tags/JAVA/">JAVA</a>, <a class="tag-link" href="/tags/자바성능튜닝이야기/">자바성능튜닝이야기</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>이 글은 아직 작성 중이며 완성 되지 않은 상태입니다.<br>자바 성능 튜닝 이야기(04 어디에  담아야 하는지…)을 읽고 공부하여 정리한 내용입니다. </p>
+<hr>
+<div id="index">목차</div>
+
+<ul>
+<li><a href="#interface">Collection 및 Map 인터페이스의 이해</a><ul>
+<li><a href="#collection-interface">Collection 인터페이스</a></li>
+<li><a href="#map-interface">Map 인터페이스</a></li>
+</ul>
+</li>
+<li><a href="#set">Set 관련 클래스</a></li>
+<li><a href="#list">List 관련 클래스</a></li>
+<li><a href="#queue">Queue 관련 클래스</a></li>
+<li><a href="#map">Map 관련 클래스</a></li>
+<li><a href="#collection-sync">Collection 관련 클래스의 동기화</a></li>
+</ul>
+<hr>
+<h2 id="Collection-및-Map-인터페이스의-이해"><a href="#Collection-및-Map-인터페이스의-이해" class="headerlink" title="Collection 및 Map 인터페이스의 이해"></a><div id="interface">Collection 및 Map 인터페이스의 이해</div></h2><h3 id="Collection-인터페이스"><a href="#Collection-인터페이스" class="headerlink" title="Collection 인터페이스"></a><div id="collection-interface">Collection 인터페이스</div></h3><p><img src alt="이미지 준비중"></p>
+<ul>
+<li><strong>Collection</strong> : 상위 인터페이스</li>
+<li><strong>Set</strong> : 중복을 허용하지 않는 집합을 처리하기 위한 인터페이스</li>
+<li><strong>SortedSet</strong> : 오름차순을 갖는 Set 인터페이스</li>
+<li><strong>List</strong> : 순서가 있는 집합을 처리하기 위한 인터페이스<br>중복을 허용하며 인덱스가 있어 위치를 지정하여 값을 찾을 수 있다.</li>
+<li><strong>Queue</strong> : FIFO(First In First Out, 선입선출) 형태로 자료를 관리하는 인터페이스</li>
+</ul>
+<h3 id="Map-인터페이스"><a href="#Map-인터페이스" class="headerlink" title="Map 인터페이스"></a><div id="map-interface">Map 인터페이스</div></h3><p><img src alt="이미지 준비중"></p>
+<ul>
+<li><strong>Map</strong> : Map은 key와 value의 쌍으로 구성된 객체의 잡합을 처리하기 위한 인터페이스<br>중복되는 키를 허용하지않는다.</li>
+<li><strong>SortedMap</strong> : 키를 오름차순으로 정렬하는 Map 인터페이스</li>
+</ul>
+<hr>
+<h2 id="Set-관련-클래스"><a href="#Set-관련-클래스" class="headerlink" title=" Set 관련 클래스"></a><div id="set"> Set 관련 클래스</div></h2><h4 id="Set-인터페이스는-중복이-없는-집합-객체를-만들-때-유용하다"><a href="#Set-인터페이스는-중복이-없는-집합-객체를-만들-때-유용하다" class="headerlink" title="Set 인터페이스는 중복이 없는 집합 객체를 만들 때 유용하다."></a><code>Set 인터페이스</code>는 중복이 없는 집합 객체를 만들 때 유용하다.</h4><p>Set 인터페이스를 구현한 클래스로는 <strong>HashSet</strong>, <strong>TreeSet</strong>, <strong>LinkedHashSet</strong> 세가지가 있다.<br><img src alt="이미지 준비중"></p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>HashSet</strong></td>
+<td>데이터를 해쉬 테이블에 담는 클래스로 순서 없이 저장</td>
+</tr>
+<tr>
+<td><strong>TreeSet</strong></td>
+<td>red-black이라는 트리에 데이터를 담는 클래스로 값에 따라서 순서가 정해진다.<br>데이터를 담으면서 동시에 정렬하기 때문에 HashSet보다 성능상 느리다.</td>
+</tr>
+<tr>
+<td><strong>LinkedHashSet</strong></td>
+<td>헤쉬 테이블에 데이터를 담는데, 저장된 순서에 따라서 순서가 결정된다.</td>
+</tr>
+</tbody></table>
+<h2 id="List-관련-클래스"><a href="#List-관련-클래스" class="headerlink" title=" List 관련 클래스"></a><div id="list"> List 관련 클래스</div></h2><h4 id="List-인터페이스를-구현한-클래스들은-담을-수-있는-크기가-자동으로-증가되므로-데이터의-개수를-확실히-모를-때-유용하다"><a href="#List-인터페이스를-구현한-클래스들은-담을-수-있는-크기가-자동으로-증가되므로-데이터의-개수를-확실히-모를-때-유용하다" class="headerlink" title="List 인터페이스를 구현한 클래스들은 담을 수 있는 크기가 자동으로 증가되므로, 데이터의 개수를 확실히 모를 때 유용하다."></a><code>List 인터페이스</code>를 구현한 클래스들은 담을 수 있는 크기가 자동으로 증가되므로, 데이터의 개수를 확실히 모를 때 유용하다.</h4><p>List 인터페이스를 구현한 클래스로는 <strong>vector</strong>, <strong>ArrayList</strong>, <strong>LinkedList</strong> 세가지가 있다.<br><img src alt="이미지 준비중"></p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>vector</strong></td>
+<td>객체 생성시에 크기를 지정할 필요가 없는 배열 클래스</td>
+</tr>
+<tr>
+<td><strong>ArrayList</strong></td>
+<td>Vector</td>
+</tr>
+<tr>
+<td><strong>LinkedList</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Queue-관련-클래스"><a href="#Queue-관련-클래스" class="headerlink" title=" Queue 관련 클래스"></a><div id="queue"> Queue 관련 클래스</div></h2><h2 id="Map-관련-클래스"><a href="#Map-관련-클래스" class="headerlink" title=" Map 관련 클래스"></a><div id="map"> Map 관련 클래스</div></h2><hr>
+<h1 id="Collection-관련-클래스의-동기화"><a href="#Collection-관련-클래스의-동기화" class="headerlink" title=" Collection 관련 클래스의 동기화"></a><div id="collection-sync"> Collection 관련 클래스의 동기화</div></h1><hr>
+<h3 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h3><ul>
+<li><a href="https://dzone.com/articles/an-introduction-to-the-java-collections-framework" target="_blank" rel="noopener">An Introduction to the Java Collections Framework</a></li>
+<li><a href="https://onsil-thegreenhouse.github.io/programming/java/2018/02/21/java\_tutorial\_1-23/" target="_blank" rel="noopener">https://onsil-thegreenhouse.github.io/programming/java/2018/02/21/java\_tutorial\_1-23/</a></li>
+</ul>
+
+        </div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 신규 광고 단위 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4216786793416168"
+     data-ad-slot="4633808997"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://simhyejin.github.io/2019/11/05/javaPerfomanceTunning4/" data-id="ck2l80i04000ek8gj7i6cq256" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Sim Hyejin"
+        },
+        "headline": "[자바성능튜닝이야기] 04 어디에  담아야 하는지...",
+        "image": "https://simhyejin.github.io",
+        "keywords": "자바성능튜닝이야기 JAVA Collection",
+        "genre": "Book JAVA",
+        "datePublished": "2019-11-05",
+        "dateCreated": "2019-11-05",
+        "dateModified": "2019-11-05",
+        "url": "https://simhyejin.github.io/2019/11/05/javaPerfomanceTunning4/",
+        "description": "이 글은 아직 작성 중이며 완성 되지 않은 상태입니다.자바 성능 튜닝 이야기(04 어디에  담아야 하는지…)을 읽고 공부하여 정리한 내용입니다. 
+
+목차
+
+
+Collection 및 Map 인터페이스의 이해
+Collection 인터페이스
+Map 인터페이스
+
+
+Set 관련 클래스
+List 관련 클래스
+Queue 관련 클래스
+Map 관련 클래스
+Collectio",
+        "wordCount": 327
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Simhyejin" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/11/05/javaPerfomanceTunning3/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[자바성능튜닝이야기] 03 왜 자꾸 String을 쓰지 말라는 거야</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/11/05/javaPerfomanceTunning4/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Book/">Book</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Book/JAVA/">JAVA</a></p>
+                            <p class="item-title"><a href="/2019/11/05/javaPerfomanceTunning4/" class="title">[자바성능튜닝이야기] 04 어디에  담아야 하는지...</a></p>
+                            <p class="item-date"><time datetime="2019-11-05T02:14:41.000Z" itemprop="datePublished">2019-11-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/11/05/javaPerfomanceTunning3/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Book/">Book</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Book/JAVA/">JAVA</a></p>
+                            <p class="item-title"><a href="/2019/11/05/javaPerfomanceTunning3/" class="title">[자바성능튜닝이야기] 03 왜 자꾸 String을 쓰지 말라는 거야</a></p>
+                            <p class="item-date"><time datetime="2019-11-05T01:53:22.000Z" itemprop="datePublished">2019-11-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/11/05/javaPerfomanceTunning2/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Book/">Book</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Book/JAVA/">JAVA</a></p>
+                            <p class="item-title"><a href="/2019/11/05/javaPerfomanceTunning2/" class="title">[자바성능튜닝이야기] 02 내가 만든 프로그램의 속도를 알고 싶다</a></p>
+                            <p class="item-date"><time datetime="2019-11-05T01:39:39.000Z" itemprop="datePublished">2019-11-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/11/04/javaPerfomanceTunning1/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.corej2eepatterns.com/images/CJP2Catalog.gif)" alt="[자바성능튜닝이야기] 01 디자인 패턴, 꼭 써야한다." class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Book/">Book</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Book/JAVA/">JAVA</a></p>
+                            <p class="item-title"><a href="/2019/11/04/javaPerfomanceTunning1/" class="title">[자바성능튜닝이야기] 01 디자인 패턴, 꼭 써야한다.</a></p>
+                            <p class="item-date"><time datetime="2019-11-04T08:47:09.000Z" itemprop="datePublished">2019-11-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/13/TIME-WAIT/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/TCP_close.png)" alt="TIME_WAIT State" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/CSE/">CSE</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/CSE/NETWORK/">NETWORK</a></p>
+                            <p class="item-title"><a href="/2016/07/13/TIME-WAIT/" class="title">TIME_WAIT State</a></p>
+                            <p class="item-date"><time datetime="2016-07-13T07:47:10.000Z" itemprop="datePublished">2016-07-13</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Book/">Book</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Book/JAVA/">JAVA</a><span class="category-list-count">4</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSE/">CSE</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CSE/NETWORK/">NETWORK</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSE/보안/">보안</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/4-Way-Hand-Shake/" style="font-size: 10px;">4 Way Hand Shake</a> <a href="/tags/APM툴/" style="font-size: 10px;">APM툴</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/ERROR-Deployer-not-found-git/" style="font-size: 10px;">ERROR Deployer not found git</a> <a href="/tags/J2EE패턴/" style="font-size: 10px;">J2EE패턴</a> <a href="/tags/JAVA/" style="font-size: 17.5px;">JAVA</a> <a href="/tags/MVC패턴/" style="font-size: 10px;">MVC패턴</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Static-Site-Generator/" style="font-size: 10px;">Static Site Generator</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/TIME-WAIT/" style="font-size: 10px;">TIME_WAIT</a> <a href="/tags/alias/" style="font-size: 10px;">alias</a> <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/connection-oriented/" style="font-size: 10px;">connection oriented</a> <a href="/tags/connectionless/" style="font-size: 10px;">connectionless</a> <a href="/tags/deployer/" style="font-size: 10px;">deployer</a> <a href="/tags/disqus/" style="font-size: 10px;">disqus</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/github-pages/" style="font-size: 10px;">github-pages</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/hexo-generator-alias/" style="font-size: 10px;">hexo generator alias</a> <a href="/tags/hueman/" style="font-size: 10px;">hueman</a> <a href="/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/tags/markdown-syntax/" style="font-size: 10px;">markdown syntax</a> <a href="/tags/network/" style="font-size: 12.5px;">network</a> <a href="/tags/owasp/" style="font-size: 10px;">owasp</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/post/" style="font-size: 10px;">post</a> <a href="/tags/redirect/" style="font-size: 10px;">redirect</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/square-bracket/" style="font-size: 10px;">square bracket</a> <a href="/tags/tcp-close/" style="font-size: 10px;">tcp close</a> <a href="/tags/tcp-ip/" style="font-size: 12.5px;">tcp/ip</a> <a href="/tags/theme-color/" style="font-size: 10px;">theme color</a> <a href="/tags/themes/" style="font-size: 10px;">themes</a> <a href="/tags/thumbnail/" style="font-size: 10px;">thumbnail</a> <a href="/tags/title/" style="font-size: 10px;">title</a> <a href="/tags/마크다운/" style="font-size: 10px;">마크다운</a> <a href="/tags/마크다운-문법/" style="font-size: 10px;">마크다운 문법</a> <a href="/tags/자바성능튜닝이야기/" style="font-size: 17.5px;">자바성능튜닝이야기</a> <a href="/tags/정적-블로그-프레임워크/" style="font-size: 10px;">정적 블로그 프레임워크</a> <a href="/tags/프로파일링툴/" style="font-size: 10px;">프로파일링툴</a> <a href="/tags/헥소/" style="font-size: 10px;">헥소</a>
+        </div>
+    </div>
+
+
+            
+                <div class="widget-wrap widget-float">
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- huemen sidebar -->
+    <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-4216786793416168# enter the adsense publisher ID (pub-XXXXXXXXXXXXXXX) for your google adsense"
+            data-ad-slot="4633808997# the id of your add unit"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+</div>
+
+            
+        
+    </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 신규 광고 단위 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4216786793416168"
+     data-ad-slot="4633808997"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Sim Hyejin</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'CoolLime';
+    
+    
+    var disqus_url = 'https://simhyejin.github.io/2019/11/05/javaPerfomanceTunning4/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+      <script data-ad-client="ca-pub-4216786793416168# enter the adsense publisher ID (pub-XXXXXXXXXXXXXXX) for your google adsense" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
