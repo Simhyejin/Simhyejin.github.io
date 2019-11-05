@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라! | JENNY|개발자</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="tcp/ip,network,connection oriented,connectionless">
+    
+    <meta name="description" content="Tip 1 : Understand the Difference between Connected and Connectionless Protocols네트워크를 공부하다보면 연결지향(Connection-Oriented)와 비연결(Connectionless)라는 말을 들어보셨을 것입니다.이번 포스트는 Connection-Oriented과 Connectionless에">
+<meta name="keywords" content="tcp&#x2F;ip,network,connection oriented,connectionless">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라!">
+<meta property="og:url" content="https://simhyejin.github.io/2016/07/04/connectionoriented-connectionless/index.html">
+<meta property="og:site_name" content="JENNY|개발자">
+<meta property="og:description" content="Tip 1 : Understand the Difference between Connected and Connectionless Protocols네트워크를 공부하다보면 연결지향(Connection-Oriented)와 비연결(Connectionless)라는 말을 들어보셨을 것입니다.이번 포스트는 Connection-Oriented과 Connectionless에">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://simhyejin.github.io/images/connection_thumbnail.png">
+<meta property="og:updated_time" content="2019-11-04T08:38:41.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라!">
+<meta name="twitter:description" content="Tip 1 : Understand the Difference between Connected and Connectionless Protocols네트워크를 공부하다보면 연결지향(Connection-Oriented)와 비연결(Connectionless)라는 말을 들어보셨을 것입니다.이번 포스트는 Connection-Oriented과 Connectionless에">
+<meta name="twitter:image" content="https://simhyejin.github.io/images/connection_thumbnail.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/favi.jpeg# path to favicon">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">컴공녀의 개발 블로그</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">ホーム</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Blog/">Blog</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Book/">Book</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Book/JAVA/">JAVA</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CSE/">CSE</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CSE/NETWORK/">NETWORK</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CSE/보안/">보안</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">このブログについて</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="検索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="入力してください" />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '記事',
+            PAGES: 'ページ',
+            CATEGORIES: 'カテゴリー',
+            TAGS: 'タグ',
+            UNTITLED: '（名称未設定）',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/CSE/">CSE</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/CSE/NETWORK/">NETWORK</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 신규 광고 단위 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4216786793416168"
+     data-ad-slot="4633808997"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                            <article id="post-connectionoriented-connectionless" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라!
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/2016/07/04/connectionoriented-connectionless/" class="article-date">
+         <time datetime="2016-07-04T12:33:09.000Z" itemprop="datePublished">2016-07-04</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/connection-oriented/">connection oriented</a>, <a class="tag-link" href="/tags/connectionless/">connectionless</a>, <a class="tag-link" href="/tags/network/">network</a>, <a class="tag-link" href="/tags/tcp-ip/">tcp/ip</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="Tip-1-Understand-the-Difference-between-Connected-and-Connectionless-Protocols"><a href="#Tip-1-Understand-the-Difference-between-Connected-and-Connectionless-Protocols" class="headerlink" title="Tip 1 : Understand the Difference between Connected and Connectionless Protocols"></a>Tip 1 : Understand the Difference between Connected and Connectionless Protocols</h3><p>네트워크를 공부하다보면 <code>연결지향(Connection-Oriented)</code>와 <code>비연결(Connectionless)</code>라는 말을 들어보셨을 것입니다.<br>이번 포스트는 Connection-Oriented과 Connectionless에 대해 포스트하겠습니다.</p>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>TCP는 Connection-Oriented 프로토콜 입니다. 1:1로 연결 상태를 유지하여 통신하는 것을 말합니다.<br>IP와 UDP 는 Connectionless 프로토콜 입니다. 연결 상태를 유지하는 것이 아니라 주소를 가지고 다음 라우터나 목적지로 전달만 하여 데이타그램에 대해 관여 하지 않습니다. </p>
+<hr>
+<h4 id="Connection-Oriented-와-Connectionless-비교"><a href="#Connection-Oriented-와-Connectionless-비교" class="headerlink" title="Connection Oriented 와 Connectionless 비교"></a>Connection Oriented 와 Connectionless 비교</h4><table>
+<thead>
+<tr>
+<th align="center">Connection Oriented</th>
+<th align="center">Connectionless</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">TCP</td>
+<td align="center">IP, UDP</td>
+</tr>
+<tr>
+<td align="center">Segment</td>
+<td align="center">Datagram</td>
+</tr>
+<tr>
+<td align="center">프로토콜에 의해 연속적으로<br>패킷의 상태 정보 유지<sup><a href="#maintain_state">1</a></sup></td>
+<td align="center">각각의 패킷들이 독립적<sup><a href="#independence">2</a></sup></td>
+</tr>
+<tr>
+<td align="center">reliable</td>
+<td align="center">unreliable</td>
+</tr>
+<tr>
+<td align="center">1:1</td>
+<td align="center">1:N<br>N:M</td>
+</tr>
+</tbody></table>
+<h4 id="Connection-Oriented-Protocol의-3단계"><a href="#Connection-Oriented-Protocol의-3단계" class="headerlink" title="Connection Oriented Protocol의 3단계"></a>Connection Oriented Protocol의 3단계</h4><ol>
+<li>연결 (Connection Establish)</li>
+<li>데이타 전송 단계(Data Transfer)</li>
+<li>연결 종료 (Connection Colose)</li>
+</ol>
+<h4 id="✩Connectionless-Protocol은-Connection-Oriented-Protocol의-기반이다-✩"><a href="#✩Connectionless-Protocol은-Connection-Oriented-Protocol의-기반이다-✩" class="headerlink" title="✩Connectionless Protocol은 Connection Oriented Protocol의 기반이다.✩"></a>✩Connectionless Protocol은 Connection Oriented Protocol의 기반이다.✩</h4><p>TCP/IP은 4계층의 프로토콜 스택으로 이루어져있습니다.</p>
+<p>||<br>| :———: |<br>| Application |<br>| TCP/UDP |<br>| IP |<br>| Interface |<br><strong>TCP</strong>와 <strong>UDP</strong>는 <strong>IP</strong> 프로토콜 위에 존재합니다. 즉, <strong>IP</strong>는 TCP/IP 스택이 만들어지는 기초가 됩니다.<br><strong>IP</strong>는 성능 중심(Best Effort)의 unreliable, Connecionless 서비스를 제공합니다. 상위 계층에서 패킷을 받아 IP 패킷으로 캡슐화하고 이를 하드웨어 인터페이스에 전송합니다. <strong>IP</strong>는 한번 전송하면 그 패킷에 관여하지 않습니다.</p>
+<h5 id="TCP가-Connectionless-IP위에서-어떻게-연결형-서비스를-하는지-알아-보겠습니다"><a href="#TCP가-Connectionless-IP위에서-어떻게-연결형-서비스를-하는지-알아-보겠습니다" class="headerlink" title="TCP가 Connectionless IP위에서 어떻게 연결형 서비스를 하는지 알아 보겠습니다."></a>TCP가 Connectionless IP위에서 어떻게 연결형 서비스를 하는지 알아 보겠습니다.</h5><p>TCP는 <code>세그먼트(Segment)</code>라 불리는 패킷을 unreliable한 IP 데이타그램(Datagram)을 통해서 손상시키지않고 순서대로 목적지에 도달하도록 합니다.<br>신뢰성을 제공하기위해 TCP는 기본 IP 서비스에서 3가지 추가했습니다. </p>
+<ol>
+<li>TCP 세그먼트 내의 <strong>Cheksum</strong>을 제공한다. 데이터가 전송 도중에 손상되지 않았음을 증명합니다. </li>
+<li>각 바이트 마다 일정한 <strong>Sequence Number</strong>할당합니다. 데이터가 순서대로 도착하지 않을경우 바로 잡을 수 있습니다.</li>
+<li>TCP는 모든 세그먼트가 잘 도착하였는지 알기 위해 <strong>Acknowledgment &amp; Retransmission</strong> 메커니즘을 제공합니다.</li>
+</ol>
+<p>UDP는 신뢰성 없는 비연결 서비스를 제공합니다. IP 프로토콜에 2가지 기능을 추가했습니다.<br>UDP = 기본 IP 서비스 + (<strong>선택적 CheckSum</strong> + <strong>Port</strong>)<br>TCP/UDP는 자신의 고유 헤더와 데이터를 보호하기 위해 체크섬 제공.<br>포트는 데이터를 올바른 목적지 애플리케이션에 역다중화하는 방법을 제공.</p>
+<hr>
+<div id="maintain_state">1.패킷의 상태 정보 유지 </div> : 전화와 같다. 전화로 대화하는 동안 누구와 통화를 하는지 이미 알고 있다. 또한 전화가 열결되어 있는 동안 상대방의 전화번호를 다시 누를 필요도 없다. [⤿]()
+<div id="independence">2. 각가의 패킷들이 독립적 </div> : 편지와 같다. 편지들은 서로 간의 정보를 유지하지 않는다. 또한, 우체국은 편지가 분실되거나 지연되거나 배달 순서가 바뀌어 전달되지 않아도 보증하지 않는다.
+
+
+<blockquote>
+<p><strong>Effective TCP/IP Programming</strong><br>&#45; 44 Tips to Improve Your Network Programs<pre>                    <em>by C. Snader</em></pre></p>
+</blockquote>
+<hr>
+<h4 id="CSE-Network"><a href="#CSE-Network" class="headerlink" title="#CSE #Network"></a><a href="https://simhyejin.github.io/categories/CSE/">#CSE</a> <a href="https://simhyejin.github.io/tags/network/">#Network</a></h4><p>다음 포스트 &gt; <a href></a></p>
+
+        </div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 신규 광고 단위 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4216786793416168"
+     data-ad-slot="4633808997"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://simhyejin.github.io/2016/07/04/connectionoriented-connectionless/" data-id="ck2k8sj30000t78gj8e9a28mn" class="article-share-link"><i class="fa fa-share"></i>シェア</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Sim Hyejin"
+        },
+        "headline": "Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라!",
+        "image": "https://simhyejin.github.io/images/connection_thumbnail.png",
+        "keywords": "tcp/ip network connection oriented connectionless",
+        "genre": "CSE NETWORK",
+        "datePublished": "2016-07-04",
+        "dateCreated": "2016-07-04",
+        "dateModified": "2019-11-04",
+        "url": "https://simhyejin.github.io/2016/07/04/connectionoriented-connectionless/",
+        "description": "Tip 1 : Understand the Difference between Connected and Connectionless Protocols네트워크를 공부하다보면 연결지향(Connection-Oriented)와 비연결(Connectionless)라는 말을 들어보셨을 것입니다.이번 포스트는 Connection-Oriented과 Connectionless에",
+        "wordCount": 398
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>フォロー:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Simhyejin" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/07/13/TIME-WAIT/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">新しい</strong>
+        <p class="article-nav-title">
+        
+            TIME_WAIT State
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2016/06/30/hexo-generator-alias/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">古い</strong>
+        <p class="article-nav-title">Hexo Generator Alias</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/11/04/javaPerfomanceTunning1/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.corej2eepatterns.com/images/CJP2Catalog.gif)" alt="[자바성능튜닝이야기] 01 디자인 패턴, 꼭 써야한다." class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Book/">Book</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Book/JAVA/">JAVA</a></p>
+                            <p class="item-title"><a href="/2019/11/04/javaPerfomanceTunning1/" class="title">[자바성능튜닝이야기] 01 디자인 패턴, 꼭 써야한다.</a></p>
+                            <p class="item-date"><time datetime="2019-11-04T08:47:09.000Z" itemprop="datePublished">2019-11-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/13/TIME-WAIT/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/TCP_close.png)" alt="TIME_WAIT State" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/CSE/">CSE</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/CSE/NETWORK/">NETWORK</a></p>
+                            <p class="item-title"><a href="/2016/07/13/TIME-WAIT/" class="title">TIME_WAIT State</a></p>
+                            <p class="item-date"><time datetime="2016-07-13T07:47:10.000Z" itemprop="datePublished">2016-07-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/04/connectionoriented-connectionless/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/connection_thumbnail.png)" alt="Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라!" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/CSE/">CSE</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/CSE/NETWORK/">NETWORK</a></p>
+                            <p class="item-title"><a href="/2016/07/04/connectionoriented-connectionless/" class="title">Tip 1 : 연결지향(Connection Oriented) 프로토콜과 비연결(Connectionless) 프로토콜의 차이점을 이해하라!</a></p>
+                            <p class="item-date"><time datetime="2016-07-04T12:33:09.000Z" itemprop="datePublished">2016-07-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/06/30/hexo-generator-alias/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/404error.jpg)" alt="Hexo Generator Alias" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Blog/">Blog</a></p>
+                            <p class="item-title"><a href="/2016/06/30/hexo-generator-alias/" class="title">Hexo Generator Alias</a></p>
+                            <p class="item-date"><time datetime="2016-06-30T12:54:41.000Z" itemprop="datePublished">2016-06-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/06/30/Markdown-syntax/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Markdown-help-thumbnail.jpg)" alt="[Markdown] 마크다운 문법" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Blog/">Blog</a></p>
+                            <p class="item-title"><a href="/2016/06/30/Markdown-syntax/" class="title">[Markdown] 마크다운 문법</a></p>
+                            <p class="item-date"><time datetime="2016-06-29T16:41:00.000Z" itemprop="datePublished">2016-06-30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">カテゴリー</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Book/">Book</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Book/JAVA/">JAVA</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSE/">CSE</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CSE/NETWORK/">NETWORK</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSE/보안/">보안</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">アーカイブ</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">タグクラウド</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/4-Way-Hand-Shake/" style="font-size: 10px;">4 Way Hand Shake</a> <a href="/tags/ERROR-Deployer-not-found-git/" style="font-size: 10px;">ERROR Deployer not found git</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Static-Site-Generator/" style="font-size: 10px;">Static Site Generator</a> <a href="/tags/TIME-WAIT/" style="font-size: 10px;">TIME_WAIT</a> <a href="/tags/alias/" style="font-size: 10px;">alias</a> <a href="/tags/blog/" style="font-size: 16.67px;">blog</a> <a href="/tags/connection-oriented/" style="font-size: 10px;">connection oriented</a> <a href="/tags/connectionless/" style="font-size: 10px;">connectionless</a> <a href="/tags/deployer/" style="font-size: 10px;">deployer</a> <a href="/tags/disqus/" style="font-size: 10px;">disqus</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/github-pages/" style="font-size: 10px;">github-pages</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/hexo-generator-alias/" style="font-size: 10px;">hexo generator alias</a> <a href="/tags/hueman/" style="font-size: 10px;">hueman</a> <a href="/tags/markdown/" style="font-size: 13.33px;">markdown</a> <a href="/tags/markdown-syntax/" style="font-size: 10px;">markdown syntax</a> <a href="/tags/network/" style="font-size: 13.33px;">network</a> <a href="/tags/owasp/" style="font-size: 10px;">owasp</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/post/" style="font-size: 10px;">post</a> <a href="/tags/redirect/" style="font-size: 10px;">redirect</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/square-bracket/" style="font-size: 10px;">square bracket</a> <a href="/tags/tcp-close/" style="font-size: 10px;">tcp close</a> <a href="/tags/tcp-ip/" style="font-size: 13.33px;">tcp/ip</a> <a href="/tags/theme-color/" style="font-size: 10px;">theme color</a> <a href="/tags/themes/" style="font-size: 10px;">themes</a> <a href="/tags/thumbnail/" style="font-size: 10px;">thumbnail</a> <a href="/tags/title/" style="font-size: 10px;">title</a> <a href="/tags/마크다운/" style="font-size: 10px;">마크다운</a> <a href="/tags/마크다운-문법/" style="font-size: 10px;">마크다운 문법</a> <a href="/tags/자바성능튜닝이야기/" style="font-size: 10px;">자바성능튜닝이야기</a> <a href="/tags/정적-블로그-프레임워크/" style="font-size: 10px;">정적 블로그 프레임워크</a> <a href="/tags/헥소/" style="font-size: 10px;">헥소</a>
+        </div>
+    </div>
+
+
+            
+                <div class="widget-wrap widget-float">
+
+    <h3 class="widget-title">Sponsored</h3>
+    <div class="widget">
+        <a href="https://marcofranssen.nl?adsense_widget">This widget is sponsored by, Marco Franssen, main contributor to this theme.</a>
+    </div>
+
+</div>
+
+            
+        
+    </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 신규 광고 단위 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4216786793416168"
+     data-ad-slot="4633808997"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Sim Hyejin</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'CoolLime';
+    
+    
+    var disqus_url = 'https://simhyejin.github.io/2016/07/04/connectionoriented-connectionless/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
