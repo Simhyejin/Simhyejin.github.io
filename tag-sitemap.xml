@@ -38,13 +38,6 @@
     </url>
 
     <url>
-        <loc>https://simhyejin.github.io/tags/markdown/</loc>
-        <lastmod>2019-11-04T08:38:41.494Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://simhyejin.github.io/tags/title/</loc>
         <lastmod>2019-11-04T08:38:41.494Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -60,6 +53,13 @@
 
     <url>
         <loc>https://simhyejin.github.io/tags/hexo/</loc>
+        <lastmod>2019-11-04T08:38:41.494Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/markdown/</loc>
         <lastmod>2019-11-04T08:38:41.494Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
