@@ -8,6 +8,13 @@
     </url>
 
     <url>
+        <loc>https://simhyejin.github.io/categories/Blog/</loc>
+        <lastmod>2019-11-05T05:28:37.588Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://simhyejin.github.io/categories/CSE/%EB%B3%B4%EC%95%88/</loc>
         <lastmod>2019-11-05T02:45:03.741Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,13 +24,6 @@
     <url>
         <loc>https://simhyejin.github.io/categories/CSE/</loc>
         <lastmod>2019-11-05T02:45:03.741Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/categories/Blog/</loc>
-        <lastmod>2019-11-05T02:43:28.740Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
