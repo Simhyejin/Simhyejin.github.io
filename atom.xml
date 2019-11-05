@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>JENNY|개발자</title>
+  <title>JENNY|시매</title>
   
-  <subtitle>컴공녀의 개발 블로그</subtitle>
+  <subtitle>시매의 기록장</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://simhyejin.github.io/"/>
