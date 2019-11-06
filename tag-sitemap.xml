@@ -3,6 +3,55 @@
 
 
     <url>
+        <loc>https://simhyejin.github.io/tags/Static-Site-Generator/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/%ED%97%A5%EC%86%8C/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/Node-js/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/git/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/%EC%A0%95%EC%A0%81-%EB%B8%94%EB%A1%9C%EA%B7%B8-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/hexo/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://simhyejin.github.io/tags/blog/</loc>
+        <lastmod>2019-11-06T07:01:22.122Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://simhyejin.github.io/tags/%EB%A7%88%ED%81%AC%EB%8B%A4%EC%9A%B4%EB%AC%B8%EB%B2%95/</loc>
         <lastmod>2019-11-06T01:18:31.935Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -117,55 +166,6 @@
     <url>
         <loc>https://simhyejin.github.io/tags/themes/</loc>
         <lastmod>2019-11-05T02:41:36.828Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/hexo/</loc>
-        <lastmod>2019-11-05T02:41:36.828Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/blog/</loc>
-        <lastmod>2019-11-05T02:41:36.828Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/Static-Site-Generator/</loc>
-        <lastmod>2019-11-05T02:40:53.628Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/%ED%97%A5%EC%86%8C/</loc>
-        <lastmod>2019-11-05T02:40:53.628Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/Node-js/</loc>
-        <lastmod>2019-11-05T02:40:53.628Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/git/</loc>
-        <lastmod>2019-11-05T02:40:53.628Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/tags/%EC%A0%95%EC%A0%81-%EB%B8%94%EB%A1%9C%EA%B7%B8-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC/</loc>
-        <lastmod>2019-11-05T02:40:53.628Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
