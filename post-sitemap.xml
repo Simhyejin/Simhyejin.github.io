@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://simhyejin.github.io/2016/06/30/Markdown-syntax/</loc>
+        <lastmod>2019-11-13T08:46:52.483Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://simhyejin.github.io/2019/11/13/goodSite/</loc>
         <lastmod>2019-11-13T08:03:34.786Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -18,14 +26,6 @@
     <url>
         <loc>https://simhyejin.github.io/2016/06/20/blog-start-hexo/</loc>
         <lastmod>2019-11-06T07:01:22.122Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://simhyejin.github.io/2016/06/30/Markdown-syntax/</loc>
-        <lastmod>2019-11-06T01:18:31.935Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
